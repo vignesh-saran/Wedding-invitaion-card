@@ -15,6 +15,7 @@
       font-family: 'Roboto', sans-serif;
       background: radial-gradient(circle, #f0e6ff, #ffffff);
       overflow-x: hidden;
+      position: relative;
     }
     .card-container {
       perspective: 1200px;
@@ -91,17 +92,26 @@
       font-size: 20px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
-    .sparkle, .rocket {
+
+    .particle {
       position: absolute;
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: gold;
-      animation: sparkle 1s ease-out forwards;
+      background: red;
+      opacity: 0.8;
+      animation: explode 1s ease-out forwards;
     }
-    @keyframes sparkle {
-      0% {opacity: 1; transform: scale(1);} 
-      100% {opacity: 0; transform: translateY(-120px) scale(0);}
+
+    @keyframes explode {
+      from {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+      }
+      to {
+        transform: translate(var(--x), var(--y)) scale(0.5);
+        opacity: 0;
+      }
     }
 
     .map-wrapper {
@@ -183,24 +193,41 @@
     const toggleBtn = document.getElementById('musicToggle');
     let isMusicPlaying = false;
 
-    card.addEventListener('click', () => {
+    function launchFireworks(x, y) {
+      for (let i = 0; i < 40; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        const angle = Math.random() * 2 * Math.PI;
+        const radius = Math.random() * 150;
+        const offsetX = Math.cos(angle) * radius;
+        const offsetY = Math.sin(angle) * radius;
+
+        particle.style.setProperty('--x', `${offsetX}px`);
+        particle.style.setProperty('--y', `${offsetY}px`);
+        particle.style.left = `${x}px`;
+        particle.style.top = `${y}px`;
+        particle.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        document.body.appendChild(particle);
+
+        setTimeout(() => {
+          particle.remove();
+        }, 1000);
+      }
+    }
+
+    card.addEventListener('click', (e) => {
       card.classList.add('open');
+
+      const rect = card.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      launchFireworks(centerX, centerY);
+
       if (!isMusicPlaying) {
         music.play();
         toggleBtn.textContent = '🔈';
         isMusicPlaying = true;
-      }
-
-      // Create rocket blast animation
-      for (let i = 0; i < 40; i++) {
-        const sparkle = document.createElement('div');
-        sparkle.classList.add('sparkle');
-        sparkle.style.left = `${card.offsetLeft + 180 + (Math.random() - 0.5) * 300}px`;
-        sparkle.style.top = `${card.offsetTop + 250}px`;
-        sparkle.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-        sparkle.style.animationDelay = `${Math.random()}s`;
-        document.body.appendChild(sparkle);
-        setTimeout(() => sparkle.remove(), 1000);
       }
     });
 
