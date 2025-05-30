@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wedding Invitation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: radial-gradient(circle, #f0e6ff, #ffffff);
+      overflow-x: hidden;
+    }
+    .card-container {
+      perspective: 1200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      position: relative;
+      padding: 20px;
+    }
+    .card {
+      width: 360px;
+      height: 520px;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+      transform-style: preserve-3d;
+      transition: transform 1s;
+      position: relative;
+      cursor: pointer;
+    }
+    .card.open {
+      transform: rotateY(180deg);
+    }
+    .front, .back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      text-align: center;
+    }
+    .front {
+      background: linear-gradient(to bottom, #d1c4e9, #fff);
+      font-family: 'Great Vibes', cursive;
+      font-size: 28px;
+      color: #6a1b9a;
+    }
+    .back {
+      background: #fff;
+      transform: rotateY(180deg);
+    }
+    .back h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 36px;
+      color: #8e24aa;
+      margin-bottom: 10px;
+    }
+    .back p {
+      margin: 8px 0;
+      font-size: 15px;
+    }
+    .verse {
+      margin-top: 15px;
+      font-style: italic;
+      color: #4a148c;
+    }
+    #musicToggle {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 1000;
+      background: #fff;
+      border: none;
+      padding: 8px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .sparkle, .rocket {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: gold;
+      animation: sparkle 1s ease-out forwards;
+    }
+    @keyframes sparkle {
+      0% {opacity: 1; transform: scale(1);} 
+      100% {opacity: 0; transform: translateY(-120px) scale(0);}
+    }
+
+    .map-wrapper {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    .map-wrapper h2 {
+      text-align: center;
+      color: #4a148c;
+      margin-bottom: 30px;
+    }
+    .map-section {
+      margin-bottom: 30px;
+    }
+    .map-section h3 {
+      text-align: center;
+      margin-bottom: 10px;
+      color: #00695c;
+    }
+    iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+      border-radius: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .card {
+        width: 90%;
+        height: 480px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <button id="musicToggle">🔊</button>
+  <audio id="bgMusic" src="music.mp3" loop></audio>
+
+  <div class="card-container">
+    <div class="card" id="weddingCard">
+      <div class="front">
+        💒<br>Tap to Open<br>Wedding Invitation
+      </div>
+      <div class="back">
+        <h1>Jinu & Sushma</h1>
+        <p>Request the honor of your presence</p>
+        <p><strong>Monday, 16th June 2025</strong></p>
+        <p>Between 9:30 a.m – 10:30 a.m</p>
+        <p>At <strong>St. Lady of Our Lourdes Church</strong>, Alanvilai</p>
+        <p>Reception at <strong>St. Sebastian Community Hall</strong>, Madathattuvilai<br>From 6:00 p.m onwards</p>
+        <p class="verse">"Therefore what God has joined together, let no one separate."</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="map-wrapper">
+    <h2>📍 Wedding Locations</h2>
+
+    <div class="map-section">
+      <h3>Ceremony - Our Lady of Lourdes Church</h3>
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3949.179476636851!2d77.343586!3d8.184667899999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b04fa2ffe74426d%3A0xa712697be72f5f5d!2sOur%20Lady%20of%20Lourdes%20Church%20-%20Alanvilai!5e0!3m2!1sen!2sin!4v1748578523032!5m2!1sen!2sin">
+      </iframe>
+    </div>
+
+    <div class="map-section">
+      <h3>Reception - St. Sebastian Community Hall</h3>
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3948.830860255273!2d77.3466687!3d8.2197587!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b04f9bcffac97af%3A0xd1e09e884de7b75f!2sSt.Sebastian%20Community%20Hall!5e0!3m2!1sen!2sin!4v1748578581183!5m2!1sen!2sin">
+      </iframe>
+    </div>
+  </div>
+
+  <script>
+    const card = document.getElementById('weddingCard');
+    const music = document.getElementById('bgMusic');
+    const toggleBtn = document.getElementById('musicToggle');
+    let isMusicPlaying = false;
+
+    card.addEventListener('click', () => {
+      card.classList.add('open');
+      if (!isMusicPlaying) {
+        music.play();
+        toggleBtn.textContent = '🔈';
+        isMusicPlaying = true;
+      }
+
+      // Create rocket blast animation
+      for (let i = 0; i < 40; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.classList.add('sparkle');
+        sparkle.style.left = `${card.offsetLeft + 180 + (Math.random() - 0.5) * 300}px`;
+        sparkle.style.top = `${card.offsetTop + 250}px`;
+        sparkle.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        sparkle.style.animationDelay = `${Math.random()}s`;
+        document.body.appendChild(sparkle);
+        setTimeout(() => sparkle.remove(), 1000);
+      }
+    });
+
+    toggleBtn.addEventListener('click', () => {
+      if (isMusicPlaying) {
+        music.pause();
+        toggleBtn.textContent = '🔊';
+      } else {
+        music.play();
+        toggleBtn.textContent = '🔈';
+      }
+      isMusicPlaying = !isMusicPlaying;
+    });
+  </script>
+</body>
+</html>
